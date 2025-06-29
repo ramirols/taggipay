@@ -4,11 +4,14 @@ import { CraftElementWrapper } from "../CraftElementWrapper";
 export function Container({ children }: { children: React.ReactNode }) {
     const {
         connectors: { connect, drag },
-    } = useNode();
+        custom,
+    } = useNode((node) => ({
+        custom: node.data.custom,
+    }));
 
     return (
         <CraftElementWrapper>
-            <div ref={(ref) => connect(drag(ref))} className="min-h-[500px] p-8 bg-gray-100 border rounded">
+            <div ref={(ref) => { if (ref) connect(drag(ref)); }} className={custom?.className}>
                 {children}
             </div>
         </CraftElementWrapper>

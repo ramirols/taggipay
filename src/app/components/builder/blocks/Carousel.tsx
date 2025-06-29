@@ -8,7 +8,7 @@ export function Carousel() {
 
     return (
         <CraftElementWrapper>
-            <div ref={(ref) => connect(drag(ref))} className="flex overflow-x-auto space-x-4 p-4">
+            <div ref={(ref) => { if (ref) connect(drag(ref)); }} className="flex overflow-x-auto space-x-4 p-4">
                 {[1, 2, 3].map((n) => (
                     <img
                         key={n}

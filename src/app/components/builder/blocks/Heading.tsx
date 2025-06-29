@@ -8,7 +8,8 @@ export function Heading({ text = "Título de ejemplo" }) {
 
   return (
     <CraftElementWrapper>
-      <h1 ref={(ref) => connect(drag(ref))} className="text-3xl font-bold my-2">
+      <h1 ref={(ref) => { if (ref) connect(drag(ref)); }}
+        className="text-3xl font-bold my-2">
         {text}
       </h1>
     </CraftElementWrapper>

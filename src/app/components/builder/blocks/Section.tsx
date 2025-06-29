@@ -8,7 +8,8 @@ export function Section({ children }: { children: React.ReactNode }) {
 
   return (
     <CraftElementWrapper>
-      <div ref={(ref) => connect(drag(ref))} className="p-8 bg-gray-100 rounded mb-4">
+      <div ref={(ref) => { if (ref) connect(drag(ref)); }}
+        className="p-8 bg-gray-100 rounded mb-4">
         {children}
       </div>
     </CraftElementWrapper>

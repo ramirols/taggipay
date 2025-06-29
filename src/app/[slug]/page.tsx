@@ -1,7 +1,10 @@
 import { RenderPage } from "@/app/components/builder/RenderPage";
 import { createPublicServerSupabaseClient } from "@/app/lib/supabase/public-server";
-
-export default async function LandingPage({ params }: { params: { slug: string } }) {
+export default async function LandingPage({
+    params,
+}: {
+    params: { slug: string };
+}) {
     const { slug } = params;
 
     const supabase = createPublicServerSupabaseClient();

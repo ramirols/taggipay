@@ -20,7 +20,7 @@ export const CraftElementWrapper = ({ children }: { children: React.ReactNode })
 
     return (
         <div
-            ref={(ref) => ref && connect(drag(ref))}
+            ref={(ref) => { if (ref) connect(drag(ref)); }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             className={cn(

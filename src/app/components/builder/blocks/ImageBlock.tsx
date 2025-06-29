@@ -9,7 +9,7 @@ export function ImageBlock({ src = "https://placehold.co/600x400", alt = "Image"
     return (
         <CraftElementWrapper>
             <img
-                ref={(ref) => connect(drag(ref))}
+                ref={(ref) => { if (ref) connect(drag(ref)); }}
                 src={src}
                 alt={alt}
                 className="w-full h-auto rounded"

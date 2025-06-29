@@ -61,7 +61,14 @@ function BuilderContent({ supabase, slug, json }: { supabase: any; slug: string;
       </aside>
       <main className="flex-1 p-4 overflow-auto">
         <Frame>
-          <Element is={Container} canvas id="ROOT" className="min-h-[500px] border p-4" />
+          <Element
+            is={Container}
+            canvas
+            id="ROOT"
+            custom={{ className: "min-h-[500px] border p-4" }}
+          >
+            <div /> {/* hijo vacío para cumplir con children */}
+          </Element>
         </Frame>
         <Button className="mt-4 w-full" onClick={handleSave}>
           Guardar

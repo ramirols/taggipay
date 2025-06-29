@@ -8,7 +8,7 @@ export function Paragraph({ text = "Lorem ipsum dolor sit amet..." }) {
 
     return (
         <CraftElementWrapper>
-            <p ref={(ref) => connect(drag(ref))} className="text-base my-2">
+            <p ref={(ref) => { if (ref) connect(drag(ref)); }} className="text-base my-2">
                 {text}
             </p>
         </CraftElementWrapper>

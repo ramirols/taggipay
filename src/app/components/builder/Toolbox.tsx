@@ -20,7 +20,7 @@ export default function Toolbox() {
     const blocks = [
         { name: "Hero", component: <Hero /> },
         { name: "Product List", component: <ProductList /> },
-        { name: "Section", component: <Section /> },
+        { name: "Section", component: <Section>{null}</Section> },
         { name: "Heading", component: <Heading /> },
         { name: "Paragraph", component: <Paragraph /> },
         { name: "Image", component: <ImageBlock /> },

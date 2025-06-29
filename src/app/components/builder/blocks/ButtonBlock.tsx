@@ -9,7 +9,7 @@ export function ButtonBlock({ label = "Click me!" }) {
     return (
         <CraftElementWrapper>
             <button
-                ref={(ref) => connect(drag(ref))}
+                ref={(ref) => { if (ref) connect(drag(ref)); }}
                 className="px-4 py-2 bg-primary text-white rounded hover:bg-opacity-80 transition"
             >
                 {label}
