@@ -32,7 +32,7 @@ const resolver = {
 
 type BuilderEditorProps = {
   slug: string;
-  json: string | null;
+  json: Record<string, any> | null;
 };
 
 export default function BuilderEditor({ slug, json }: BuilderEditorProps) {
@@ -45,7 +45,7 @@ export default function BuilderEditor({ slug, json }: BuilderEditorProps) {
 
 type BuilderContentProps = {
   slug: string;
-  json: string | null;
+  json: Record<string, any> | null;
   supabase: SupabaseClient;
 };
 
@@ -54,7 +54,7 @@ function BuilderContent({ slug, json, supabase }: BuilderContentProps) {
 
   useEffect(() => {
     if (json) {
-      actions.deserialize(json);
+      actions.deserialize(JSON.stringify(json));
     }
   }, [json, actions]);
 
