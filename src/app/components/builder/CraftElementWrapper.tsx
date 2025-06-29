@@ -1,7 +1,7 @@
-import { useNode, Element, useEditor } from "@craftjs/core";
+import { useNode, useEditor } from "@craftjs/core";
 import { GripVertical, Trash2, Pencil } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 export const CraftElementWrapper = ({ children }: { children: React.ReactNode }) => {
     const { actions: editorActions } = useEditor();
@@ -16,11 +16,20 @@ export const CraftElementWrapper = ({ children }: { children: React.ReactNode })
 
     const [isHovered, setIsHovered] = useState(false);
 
+    const setRef = useCallback(
+        (ref: HTMLDivElement | null) => {
+            if (ref) {
+                connect(drag(ref));
+            }
+        },
+        [connect, drag]
+    );
+
     const showControls = selected || isHovered;
 
     return (
         <div
-            ref={(ref) => { if (ref) connect(drag(ref)); }}
+            ref={setRef}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             className={cn(

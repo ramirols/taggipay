@@ -2,7 +2,7 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div>Dashboarc Builder Editor</div>
+    <div>Dashboard Builder Editor</div>
   )
 }
 

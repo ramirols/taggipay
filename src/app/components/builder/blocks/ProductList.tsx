@@ -1,33 +1,50 @@
-import { Element } from "@craftjs/core";
-import { useEffect, useState } from "react";
+"use client";
+
+import { useEffect, useState, useCallback } from "react";
 import { supabase } from "@/app/lib/supabase/client";
 import { CraftElementWrapper } from "../CraftElementWrapper";
 import Image from "next/image";
+import { useNode } from "@craftjs/core";
 
-export function Hero() {
-    return (
-        <div className="p-10 bg-primary text-white text-center rounded">
-            <h1 className="text-3xl font-bold">Soy un Hero Section</h1>
-        </div>
-    );
+interface Product {
+    id: string;
+    name: string;
+    description: string;
+    image_url?: string;
+    price: number;
 }
 
 export function ProductList() {
-    const [products, setProducts] = useState<any[]>([]);
+    const [products, setProducts] = useState<Product[]>([]);
+
+    const {
+        connectors: { connect, drag },
+    } = useNode();
+
+    const setRef = useCallback(
+        (ref: HTMLDivElement | null) => {
+            if (ref) {
+                connect(drag(ref));
+            }
+        },
+        [connect, drag]
+    );
 
     useEffect(() => {
         const fetchProducts = async () => {
-            const { data: { user } } = await supabase.auth.getUser();
+            const {
+                data: { user },
+            } = await supabase.auth.getUser();
 
             if (user) {
                 const { data, error } = await supabase
-                    .from('products')
-                    .select('*')
-                    .eq('user_id', user.id)
-                    .eq('is_active', true);
+                    .from("products")
+                    .select("*")
+                    .eq("user_id", user.id)
+                    .eq("is_active", true);
 
                 if (!error && data) {
-                    setProducts(data);
+                    setProducts(data as Product[]);
                 }
             }
         };
@@ -37,13 +54,20 @@ export function ProductList() {
 
     return (
         <CraftElementWrapper>
-            <div className="p-6 border rounded">
+            <div ref={setRef} className="p-6 border rounded">
                 <h2 className="text-xl mb-4">Lista de Productos</h2>
                 <ul className="space-y-4">
-                    {products.map(product => (
+                    {products.map((product) => (
                         <li key={product.id} className="flex items-center gap-4">
                             {product.image_url && (
-                                <Image src={product.image_url} alt={product.name} className="w-16 h-16 object-cover rounded" />
+                                <div className="w-16 h-16 relative flex-shrink-0">
+                                    <Image
+                                        src={product.image_url}
+                                        alt={product.name}
+                                        fill
+                                        className="object-cover rounded"
+                                    />
+                                </div>
                             )}
                             <div>
                                 <h3 className="font-semibold">{product.name}</h3>
@@ -60,3 +84,8 @@ export function ProductList() {
         </CraftElementWrapper>
     );
 }
+
+ProductList.craft = {
+    props: {},
+    displayName: "Product List",
+};

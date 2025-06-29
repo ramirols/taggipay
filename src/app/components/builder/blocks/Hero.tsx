@@ -56,11 +56,14 @@ export function ProductList() {
                     {products.map((product) => (
                         <li key={product.id} className="flex items-center gap-4">
                             {product.image_url && (
-                                <Image
-                                    src={product.image_url}
-                                    alt={product.name}
-                                    className="w-16 h-16 object-cover rounded"
-                                />
+                                <div className="w-20 h-20 relative">
+                                    <Image
+                                        src={product.image_url}
+                                        alt={product.name}
+                                        fill
+                                        className="object-cover rounded"
+                                    />
+                                </div>
                             )}
                             <div>
                                 <h3 className="font-semibold">{product.name}</h3>

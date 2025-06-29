@@ -13,10 +13,6 @@ import { ButtonBlock } from "./blocks/ButtonBlock";
 import { Carousel } from "./blocks/Carousel";
 
 export default function Toolbox() {
-    const {
-        connectors,
-    } = useEditor();
-
     const blocks = [
         { name: "Hero", component: <Hero /> },
         { name: "Product List", component: <ProductList /> },
@@ -31,26 +27,36 @@ export default function Toolbox() {
     return (
         <div className="p-2 border-r bg-white w-[200px]">
             <h3 className="font-semibold mb-4">Componentes</h3>
-            {blocks.map(({ name, component }) => {
-                const ref = useRef<HTMLButtonElement>(null);
-
-                useEffect(() => {
-                    if (ref.current) {
-                        connectors.create(ref.current, component);
-                    }
-                }, [ref]);
-
-                return (
-                    <Button
-                        key={name}
-                        ref={ref}
-                        variant="outline"
-                        className="mb-2 w-full text-left"
-                    >
-                        {name}
-                    </Button>
-                );
-            })}
+            {blocks.map(({ name, component }) => (
+                <ToolboxItem key={name} name={name} component={component} />
+            ))}
         </div>
+    );
+}
+
+function ToolboxItem({
+    name,
+    component,
+}: {
+    name: string;
+    component: React.ReactElement;
+}) {
+    const ref = useRef<HTMLButtonElement>(null);
+    const { connectors } = useEditor();
+
+    useEffect(() => {
+        if (ref.current) {
+            connectors.create(ref.current, component);
+        }
+    }, [ref, component, connectors]);
+
+    return (
+        <Button
+            ref={ref}
+            variant="outline"
+            className="mb-2 w-full text-left"
+        >
+            {name}
+        </Button>
     );
 }
