@@ -5,13 +5,7 @@ import { supabase } from "@/app/lib/supabase/client";
 import BuilderEditor from "@/app/components/builder/BuilderEditor";
 import type { SerializedNodes } from "@craftjs/core";
 
-type BuilderPageProps = {
-    params: {
-        slug: string;
-    };
-};
-
-export default function BuilderPage({ params }: BuilderPageProps) {
+export default function Page({ params }: { params: { slug: string } }) {
     const [json, setJson] = useState<SerializedNodes | null>(null);
 
     useEffect(() => {
