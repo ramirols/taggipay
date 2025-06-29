@@ -16,6 +16,7 @@ import { Carousel } from "./blocks/Carousel";
 import { Container } from "./blocks/Container";
 import { SidebarPanel } from "./SidebarPanel";
 import toast from "react-hot-toast";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
 const resolver = {
   Hero,
@@ -31,23 +32,24 @@ const resolver = {
 
 type BuilderEditorProps = {
   slug: string;
-  json: Record<string, any> | null;
+  json: string | null;
 };
 
 export default function BuilderEditor({ slug, json }: BuilderEditorProps) {
   return (
     <Editor resolver={resolver}>
-      <BuilderContent slug={slug} json={json} />
+      <BuilderContent slug={slug} json={json} supabase={supabase} />
     </Editor>
   );
 }
 
 type BuilderContentProps = {
   slug: string;
-  json: Record<string, any> | null;
+  json: string | null;
+  supabase: SupabaseClient;
 };
 
-function BuilderContent({ slug, json }: BuilderContentProps) {
+function BuilderContent({ slug, json, supabase }: BuilderContentProps) {
   const { query, actions } = useEditor();
 
   useEffect(() => {

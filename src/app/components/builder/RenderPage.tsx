@@ -11,9 +11,26 @@ import { ButtonBlock } from "./blocks/ButtonBlock";
 import { Carousel } from "./blocks/Carousel";
 import { Container } from "./blocks/Container";
 
-export function RenderPage({ json }: { json: any }) {
+type RenderPageProps = {
+    json: string;
+};
+
+export function RenderPage({ json }: RenderPageProps) {
     return (
-        <Editor resolver={{ Hero, ProductList, Section, Heading, Paragraph, ImageBlock, ButtonBlock, Carousel, Container }} enabled={false}>
+        <Editor
+            resolver={{
+                Hero,
+                ProductList,
+                Section,
+                Heading,
+                Paragraph,
+                ImageBlock,
+                ButtonBlock,
+                Carousel,
+                Container,
+            }}
+            enabled={false}
+        >
             <Frame json={json} />
         </Editor>
     );
