@@ -8,7 +8,7 @@ import Footer from "./components/layout/Footer";
 
 export function LandingPage() {
   return (
-    <main className="min-h-screen flex flex-col">
+    <main className="flex flex-col mt-[60px]">
       <Header />
       <Hero />
       <HowItWorks />
