@@ -4,11 +4,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/app/lib/supabase/client";
 import BuilderEditor from "@/app/components/builder/BuilderEditor";
 
-type BuilderPageProps = {
-    params: { slug: string };
-};
-
-export default function BuilderPage({ params }: BuilderPageProps) {
+export default function BuilderPage({ params }: { params: { slug: string } }) {
     const [json, setJson] = useState<Record<string, any> | null>(null);
 
     useEffect(() => {
