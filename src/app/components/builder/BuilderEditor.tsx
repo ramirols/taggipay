@@ -17,6 +17,7 @@ import { Container } from "./blocks/Container";
 import { SidebarPanel } from "./SidebarPanel";
 import toast from "react-hot-toast";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import type { SerializedNodes } from "@craftjs/core";
 
 const resolver = {
   Hero,
@@ -32,7 +33,7 @@ const resolver = {
 
 type BuilderEditorProps = {
   slug: string;
-  json: Record<string, any> | null;
+  json: SerializedNodes | null;
 };
 
 export default function BuilderEditor({ slug, json }: BuilderEditorProps) {
@@ -45,7 +46,7 @@ export default function BuilderEditor({ slug, json }: BuilderEditorProps) {
 
 type BuilderContentProps = {
   slug: string;
-  json: Record<string, any> | null;
+  json: SerializedNodes | null;
   supabase: SupabaseClient;
 };
 
@@ -54,7 +55,7 @@ function BuilderContent({ slug, json, supabase }: BuilderContentProps) {
 
   useEffect(() => {
     if (json) {
-      actions.deserialize(JSON.stringify(json));
+      actions.deserialize(json);
     }
   }, [json, actions]);
 
