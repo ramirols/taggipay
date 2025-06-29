@@ -22,7 +22,7 @@ export default function Toolbox() {
         { name: "Image", component: <ImageBlock /> },
         { name: "Button", component: <ButtonBlock /> },
         { name: "Carousel", component: <Carousel /> },
-    ];
+    ]; 
 
     return (
         <div className="p-2 border-r bg-white w-[200px]">

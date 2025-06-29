@@ -18,6 +18,15 @@ export default async function LandingPage({ params }: LandingPageProps) {
 
     const supabase = createPublicServerSupabaseClient();
 
+    // ⚠️ Si Supabase no está disponible, muestra error
+    if (!supabase) {
+        return (
+            <main className="min-h-screen flex items-center justify-center">
+                <h1 className="text-2xl text-center text-red-600">Error: Supabase no disponible ❌</h1>
+            </main>
+        );
+    }
+
     const { data, error } = await supabase
         .from("page_builder_configs")
         .select("config")
