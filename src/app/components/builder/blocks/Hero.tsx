@@ -1,32 +1,45 @@
-import { Element } from "@craftjs/core";
+"use client";
+
 import { useEffect, useState } from "react";
 import { supabase } from "@/app/lib/supabase/client";
 import { CraftElementWrapper } from "../CraftElementWrapper";
 
 export function Hero() {
     return (
-        <div className="p-10 bg-primary text-white text-center rounded">
-            <h1 className="text-3xl font-bold">Soy un Hero Section</h1>
-        </div>
+        <CraftElementWrapper>
+            <div className="p-10 bg-primary text-white text-center rounded">
+                <h1 className="text-3xl font-bold">Soy un Hero Section</h1>
+            </div>
+        </CraftElementWrapper>
     );
 }
 
+type Product = {
+    id: string;
+    name: string;
+    description: string;
+    price: number;
+    image_url: string | null;
+};
+
 export function ProductList() {
-    const [products, setProducts] = useState<any[]>([]);
+    const [products, setProducts] = useState<Product[]>([]);
 
     useEffect(() => {
         const fetchProducts = async () => {
-            const { data: { user } } = await supabase.auth.getUser();
+            const {
+                data: { user },
+            } = await supabase.auth.getUser();
 
             if (user) {
                 const { data, error } = await supabase
-                    .from('products')
-                    .select('*')
-                    .eq('user_id', user.id)
-                    .eq('is_active', true);
+                    .from("products")
+                    .select("*")
+                    .eq("user_id", user.id)
+                    .eq("is_active", true);
 
                 if (!error && data) {
-                    setProducts(data);
+                    setProducts(data as Product[]);
                 }
             }
         };
@@ -39,10 +52,14 @@ export function ProductList() {
             <div className="p-6 border rounded">
                 <h2 className="text-xl mb-4">Lista de Productos</h2>
                 <ul className="space-y-4">
-                    {products.map(product => (
+                    {products.map((product) => (
                         <li key={product.id} className="flex items-center gap-4">
                             {product.image_url && (
-                                <img src={product.image_url} alt={product.name} className="w-16 h-16 object-cover rounded" />
+                                <img
+                                    src={product.image_url}
+                                    alt={product.name}
+                                    className="w-16 h-16 object-cover rounded"
+                                />
                             )}
                             <div>
                                 <h3 className="font-semibold">{product.name}</h3>

@@ -15,7 +15,6 @@ import { ButtonBlock } from "./blocks/ButtonBlock";
 import { Carousel } from "./blocks/Carousel";
 import { Container } from "./blocks/Container";
 import { SidebarPanel } from "./SidebarPanel";
-import type { SupabaseClient } from "@supabase/supabase-js";
 import toast from "react-hot-toast";
 
 const resolver = {
@@ -30,21 +29,25 @@ const resolver = {
   Container,
 };
 
-export default function BuilderEditor({
-  slug,
-  json,
-}: {
+type BuilderEditorProps = {
   slug: string;
-  json: unknown;
-}) {
+  json: Record<string, any> | null;
+};
+
+export default function BuilderEditor({ slug, json }: BuilderEditorProps) {
   return (
     <Editor resolver={resolver}>
-      <BuilderContent supabase={supabase} slug={slug} json={json} />
+      <BuilderContent slug={slug} json={json} />
     </Editor>
   );
 }
 
-function BuilderContent({ supabase, slug, json }: { supabase: any; slug: string; json: any }) {
+type BuilderContentProps = {
+  slug: string;
+  json: Record<string, any> | null;
+};
+
+function BuilderContent({ slug, json }: BuilderContentProps) {
   const { query, actions } = useEditor();
 
   useEffect(() => {
@@ -55,6 +58,7 @@ function BuilderContent({ supabase, slug, json }: { supabase: any; slug: string;
 
   const handleSave = async () => {
     const config = query.serialize();
+
     const { error } = await supabase
       .from("page_builder_configs")
       .upsert([{ slug, config }], { onConflict: "slug" });
@@ -79,7 +83,7 @@ function BuilderContent({ supabase, slug, json }: { supabase: any; slug: string;
             id="ROOT"
             custom={{ className: "min-h-[500px] border p-4" }}
           >
-            <div />
+            <div /> {/* Children requerido */}
           </Element>
         </Frame>
         <Button className="mt-4 w-full" onClick={handleSave}>
