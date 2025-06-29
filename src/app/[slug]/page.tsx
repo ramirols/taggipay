@@ -1,10 +1,19 @@
 import { RenderPage } from "@/app/components/builder/RenderPage";
 import { createPublicServerSupabaseClient } from "@/app/lib/supabase/public-server";
-export default async function LandingPage({
-    params,
-}: {
-    params: { slug: string };
-}) {
+import type { Metadata } from "next";
+
+type LandingPageProps = {
+    params: {
+        slug: string;
+    };
+};
+
+export const metadata: Metadata = {
+    title: "Página dinámica",
+    description: "Render de página creada con el builder",
+};
+
+export default async function LandingPage({ params }: LandingPageProps) {
     const { slug } = params;
 
     const supabase = createPublicServerSupabaseClient();
@@ -15,18 +24,13 @@ export default async function LandingPage({
         .eq("slug", slug)
         .maybeSingle();
 
-    console.log("El data es: ", data);
-    console.log("El error es: ", error);
-
     if (error || !data?.config) {
         return (
             <main className="min-h-screen flex items-center justify-center">
-                <h1 className="text-2xl">Página no encontrada ❌</h1>
+                <h1 className="text-2xl text-center">Página no encontrada ❌</h1>
             </main>
         );
     }
-
-    console.log("El data.config es: ", data.config);
 
     return (
         <main className="min-h-screen">
