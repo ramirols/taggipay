@@ -1,5 +1,6 @@
 import { useNode } from "@craftjs/core";
 import { CraftElementWrapper } from "../CraftElementWrapper";
+import Image from "next/image";
 
 export function ImageBlock({ src = "https://placehold.co/600x400", alt = "Image" }) {
     const {
@@ -8,7 +9,7 @@ export function ImageBlock({ src = "https://placehold.co/600x400", alt = "Image"
 
     return (
         <CraftElementWrapper>
-            <img
+            <Image
                 ref={(ref) => { if (ref) connect(drag(ref)); }}
                 src={src}
                 alt={alt}

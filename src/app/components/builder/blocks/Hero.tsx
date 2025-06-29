@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/app/lib/supabase/client";
 import { CraftElementWrapper } from "../CraftElementWrapper";
+import Image from "next/image";
 
 export function Hero() {
     return (
@@ -55,7 +56,7 @@ export function ProductList() {
                     {products.map((product) => (
                         <li key={product.id} className="flex items-center gap-4">
                             {product.image_url && (
-                                <img
+                                <Image
                                     src={product.image_url}
                                     alt={product.name}
                                     className="w-16 h-16 object-cover rounded"

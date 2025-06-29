@@ -1,5 +1,6 @@
 import { useNode } from "@craftjs/core";
 import { CraftElementWrapper } from "../CraftElementWrapper";
+import Image from "next/image";
 
 export function Carousel() {
     const {
@@ -10,7 +11,7 @@ export function Carousel() {
         <CraftElementWrapper>
             <div ref={(ref) => { if (ref) connect(drag(ref)); }} className="flex overflow-x-auto space-x-4 p-4">
                 {[1, 2, 3].map((n) => (
-                    <img
+                    <Image
                         key={n}
                         src={`https://placehold.co/300x200?text=Slide+${n}`}
                         alt={`Slide ${n}`}
