@@ -1,4 +1,5 @@
 import { Element, useNode } from "@craftjs/core";
+import { CraftElementWrapper } from "../CraftElementWrapper";
 
 export function Section({ children }: { children: React.ReactNode }) {
   const {
@@ -6,12 +7,14 @@ export function Section({ children }: { children: React.ReactNode }) {
   } = useNode();
 
   return (
-    <div ref={(ref) => connect(drag(ref))} className="p-8 bg-gray-100 rounded mb-4">
-      {children}
-    </div>
+    <CraftElementWrapper>
+      <div ref={(ref) => connect(drag(ref))} className="p-8 bg-gray-100 rounded mb-4">
+        {children}
+      </div>
+    </CraftElementWrapper>
   );
 }
-    
+
 Section.craft = {
   displayName: "Section",
   props: {},

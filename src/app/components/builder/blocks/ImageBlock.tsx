@@ -1,4 +1,5 @@
 import { useNode } from "@craftjs/core";
+import { CraftElementWrapper } from "../CraftElementWrapper";
 
 export function ImageBlock({ src = "https://placehold.co/600x400", alt = "Image" }) {
     const {
@@ -6,12 +7,14 @@ export function ImageBlock({ src = "https://placehold.co/600x400", alt = "Image"
     } = useNode();
 
     return (
-        <img
-            ref={(ref) => connect(drag(ref))}
-            src={src}
-            alt={alt}
-            className="w-full h-auto rounded"
-        />
+        <CraftElementWrapper>
+            <img
+                ref={(ref) => connect(drag(ref))}
+                src={src}
+                alt={alt}
+                className="w-full h-auto rounded"
+            />
+        </CraftElementWrapper>
     );
 }
 

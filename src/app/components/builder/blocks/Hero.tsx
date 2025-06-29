@@ -1,6 +1,7 @@
 import { Element } from "@craftjs/core";
 import { useEffect, useState } from "react";
 import { supabase } from "@/app/lib/supabase/client";
+import { CraftElementWrapper } from "../CraftElementWrapper";
 
 export function Hero() {
     return (
@@ -16,7 +17,7 @@ export function ProductList() {
     useEffect(() => {
         const fetchProducts = async () => {
             const { data: { user } } = await supabase.auth.getUser();
-            
+
             if (user) {
                 const { data, error } = await supabase
                     .from('products')
@@ -34,25 +35,27 @@ export function ProductList() {
     }, []);
 
     return (
-        <div className="p-6 border rounded">
-            <h2 className="text-xl mb-4">Lista de Productos</h2>
-            <ul className="space-y-4">
-                {products.map(product => (
-                    <li key={product.id} className="flex items-center gap-4">
-                        {product.image_url && (
-                            <img src={product.image_url} alt={product.name} className="w-16 h-16 object-cover rounded" />
-                        )}
-                        <div>
-                            <h3 className="font-semibold">{product.name}</h3>
-                            <p className="text-sm text-gray-600">{product.description}</p>
-                            <p className="font-medium">${product.price}</p>
-                        </div>
-                    </li>
-                ))}
-                {products.length === 0 && (
-                    <li className="text-gray-500">No hay productos disponibles</li>
-                )}
-            </ul>
-        </div>
+        <CraftElementWrapper>
+            <div className="p-6 border rounded">
+                <h2 className="text-xl mb-4">Lista de Productos</h2>
+                <ul className="space-y-4">
+                    {products.map(product => (
+                        <li key={product.id} className="flex items-center gap-4">
+                            {product.image_url && (
+                                <img src={product.image_url} alt={product.name} className="w-16 h-16 object-cover rounded" />
+                            )}
+                            <div>
+                                <h3 className="font-semibold">{product.name}</h3>
+                                <p className="text-sm text-gray-600">{product.description}</p>
+                                <p className="font-medium">${product.price}</p>
+                            </div>
+                        </li>
+                    ))}
+                    {products.length === 0 && (
+                        <li className="text-gray-500">No hay productos disponibles</li>
+                    )}
+                </ul>
+            </div>
+        </CraftElementWrapper>
     );
 }

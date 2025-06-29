@@ -1,4 +1,5 @@
 import { useNode } from "@craftjs/core";
+import { CraftElementWrapper } from "../CraftElementWrapper";
 
 export function Paragraph({ text = "Lorem ipsum dolor sit amet..." }) {
     const {
@@ -6,9 +7,11 @@ export function Paragraph({ text = "Lorem ipsum dolor sit amet..." }) {
     } = useNode();
 
     return (
-        <p ref={(ref) => connect(drag(ref))} className="text-base my-2">
-            {text}
-        </p>
+        <CraftElementWrapper>
+            <p ref={(ref) => connect(drag(ref))} className="text-base my-2">
+                {text}
+            </p>
+        </CraftElementWrapper>
     );
 }
 

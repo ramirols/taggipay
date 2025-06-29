@@ -1,41 +1,56 @@
 "use client";
 
+import { useEditor } from "@craftjs/core";
+import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { useRef } from "react";
+import { Hero } from "./blocks/Hero";
+import { ProductList } from "./blocks/ProductList";
+import { Section } from "./blocks/Section";
+import { Heading } from "./blocks/Heading";
+import { Paragraph } from "./blocks/Paragraph";
+import { ImageBlock } from "./blocks/ImageBlock";
+import { ButtonBlock } from "./blocks/ButtonBlock";
+import { Carousel } from "./blocks/Carousel";
 
 export default function Toolbox() {
-    const heroRef = useRef<HTMLButtonElement>(null);
-    const productListRef = useRef<HTMLButtonElement>(null);
-    const sectionRef = useRef<HTMLButtonElement>(null);
-    const headingRef = useRef<HTMLButtonElement>(null);
-    const paragraphRef = useRef<HTMLButtonElement>(null);
-    const imageRef = useRef<HTMLButtonElement>(null);
-    const buttonRef = useRef<HTMLButtonElement>(null);
-    const carouselRef = useRef<HTMLButtonElement>(null);
+    const {
+        connectors,
+    } = useEditor();
+
+    const blocks = [
+        { name: "Hero", component: <Hero /> },
+        { name: "Product List", component: <ProductList /> },
+        { name: "Section", component: <Section /> },
+        { name: "Heading", component: <Heading /> },
+        { name: "Paragraph", component: <Paragraph /> },
+        { name: "Image", component: <ImageBlock /> },
+        { name: "Button", component: <ButtonBlock /> },
+        { name: "Carousel", component: <Carousel /> },
+    ];
 
     return (
-        <div>
-            <h3 className="font-semibold mb-2">Componentes</h3>
-            <Button
-                ref={heroRef}
-                variant="outline"
-                className="mb-2 w-full"
-            >
-                Hero
-            </Button>
-            <Button
-                ref={productListRef}
-                variant="outline"
-                className="w-full mb-2"
-            >
-                Product List
-            </Button>
-            <Button ref={sectionRef} variant="outline" className="mb-2 w-full">Section</Button>
-            <Button ref={headingRef} variant="outline" className="mb-2 w-full">Heading</Button>
-            <Button ref={paragraphRef} variant="outline" className="mb-2 w-full">Paragraph</Button>
-            <Button ref={imageRef} variant="outline" className="mb-2 w-full">Image</Button>
-            <Button ref={buttonRef} variant="outline" className="mb-2 w-full">Button</Button>
-            <Button ref={carouselRef} variant="outline" className="mb-2 w-full">Carousel</Button>
+        <div className="p-2 border-r bg-white w-[200px]">
+            <h3 className="font-semibold mb-4">Componentes</h3>
+            {blocks.map(({ name, component }) => {
+                const ref = useRef<HTMLButtonElement>(null);
+
+                useEffect(() => {
+                    if (ref.current) {
+                        connectors.create(ref.current, component);
+                    }
+                }, [ref]);
+
+                return (
+                    <Button
+                        key={name}
+                        ref={ref}
+                        variant="outline"
+                        className="mb-2 w-full text-left"
+                    >
+                        {name}
+                    </Button>
+                );
+            })}
         </div>
     );
 }

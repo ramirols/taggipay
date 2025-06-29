@@ -1,4 +1,5 @@
 import { useNode } from "@craftjs/core";
+import { CraftElementWrapper } from "../CraftElementWrapper";
 
 export function Container({ children }: { children: React.ReactNode }) {
     const {
@@ -6,9 +7,11 @@ export function Container({ children }: { children: React.ReactNode }) {
     } = useNode();
 
     return (
-        <div ref={(ref) => connect(drag(ref))} className="min-h-[500px] p-8 bg-gray-100 border rounded">
-            {children}
-        </div>
+        <CraftElementWrapper>
+            <div ref={(ref) => connect(drag(ref))} className="min-h-[500px] p-8 bg-gray-100 border rounded">
+                {children}
+            </div>
+        </CraftElementWrapper>
     );
 }
 
