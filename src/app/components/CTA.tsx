@@ -18,7 +18,7 @@ export function CTA() {
                 </p>
                 <button
                     onClick={() => setRegisterOpen(true)}
-                    className="bg-white text-primary px-8 py-4 rounded-full font-bold hover:bg-gray-100 transition"
+                    className="bg-white text-primary px-8 py-4 rounded-full font-bold hover:bg-gray-100 transition cursor-pointer"
                 >
                     Regístrate Gratis
                 </button>

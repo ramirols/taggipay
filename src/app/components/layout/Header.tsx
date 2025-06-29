@@ -26,13 +26,13 @@ export function Header() {
                     <nav className="hidden md:flex items-center gap-4">
                         <button
                             onClick={() => setLoginOpen(true)}
-                            className="text-primary font-medium hover:underline transition"
+                            className="text-primary font-medium hover:underline transition cursor-pointer"
                         >
                             Iniciar Sesión
                         </button>
                         <button
                             onClick={() => setRegisterOpen(true)}
-                            className="bg-primary text-white px-5 py-2 rounded-full font-semibold hover:bg-primary/80 transition"
+                            className="bg-primary text-white px-5 py-2 rounded-full font-semibold hover:bg-primary/80 transition cursor-pointer"
                         >
                             Regístrate
                         </button>

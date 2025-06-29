@@ -100,7 +100,7 @@ export function LoginDialog({ open, onOpenChange }: Props) {
             type="submit"
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.99 }}
-            className="w-full bg-primary text-white py-2 rounded-lg font-medium hover:bg-primary/90 transition-colors"
+            className="w-full bg-primary text-white py-2 rounded-lg font-medium hover:bg-primary/90 transition-colors cursor-pointer"
           >
             Iniciar Sesión
           </motion.button>
