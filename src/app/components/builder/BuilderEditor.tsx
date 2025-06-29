@@ -15,6 +15,8 @@ import { ButtonBlock } from "./blocks/ButtonBlock";
 import { Carousel } from "./blocks/Carousel";
 import { Container } from "./blocks/Container";
 import { SidebarPanel } from "./SidebarPanel";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import toast from "react-hot-toast";
 
 const resolver = {
   Hero,
@@ -28,7 +30,13 @@ const resolver = {
   Container,
 };
 
-export default function BuilderEditor({ slug, json }: { slug: string; json: any }) {
+export default function BuilderEditor({
+  slug,
+  json,
+}: {
+  slug: string;
+  json: unknown;
+}) {
   return (
     <Editor resolver={resolver}>
       <BuilderContent supabase={supabase} slug={slug} json={json} />
@@ -43,7 +51,7 @@ function BuilderContent({ supabase, slug, json }: { supabase: any; slug: string;
     if (json) {
       actions.deserialize(json);
     }
-  }, [json]);
+  }, [json, actions]);
 
   const handleSave = async () => {
     const config = query.serialize();
@@ -51,7 +59,11 @@ function BuilderContent({ supabase, slug, json }: { supabase: any; slug: string;
       .from("page_builder_configs")
       .upsert([{ slug, config }], { onConflict: "slug" });
 
-    if (!error) alert("Guardado ✅");
+    if (error) {
+      toast.error("Error al guardar. Intenta nuevamente.");
+    } else {
+      toast.success("Página guardada exitosamente ✅");
+    }
   };
 
   return (
@@ -67,7 +79,7 @@ function BuilderContent({ supabase, slug, json }: { supabase: any; slug: string;
             id="ROOT"
             custom={{ className: "min-h-[500px] border p-4" }}
           >
-            <div /> {/* hijo vacío para cumplir con children */}
+            <div />
           </Element>
         </Frame>
         <Button className="mt-4 w-full" onClick={handleSave}>

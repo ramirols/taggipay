@@ -1,6 +1,7 @@
 "use client"
 
 import AnimatedContainer from "./AnimatedContainer"
+import Link from "next/link";
 
 export function CTA() {
     return (
@@ -8,9 +9,9 @@ export function CTA() {
             <AnimatedContainer>
                 <h2 className="text-3xl font-bold mb-4">¿Listo para empezar a vender?</h2>
                 <p className="mb-8 text-lg">Crea tu cuenta gratuita hoy mismo y recibe pagos sin complicaciones.</p>
-                <a href="/auth/register" className="bg-white text-primary px-8 py-4 rounded-full font-bold hover:bg-gray-100 transition">
+                <Link href="/auth/register" className="bg-white text-primary px-8 py-4 rounded-full font-bold hover:bg-gray-100 transition">
                     Regístrate Gratis
-                </a>
+                </Link>
             </AnimatedContainer>
         </section>
     )

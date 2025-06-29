@@ -21,7 +21,7 @@ export function Testimonials() {
                 <div className="max-w-4xl mx-auto space-y-8">
                     {testimonials.map((t, idx) => (
                         <div key={idx} className="bg-white shadow p-6 rounded-lg text-center">
-                            <p className="italic text-lg mb-4">"{t.quote}"</p>
+                            <p className="italic text-lg mb-4">&quot;{t.quote}&quot;</p>
                             <p className="font-bold">{t.name}</p>
                         </div>
                     ))}

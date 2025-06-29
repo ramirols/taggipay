@@ -31,7 +31,6 @@ export function LoginDialog({ open, onOpenChange }: Props) {
     setError: setFormError,
     formState: { errors },
   } = useForm<LoginFormData>();
-  const loading = false;
 
   const onSubmit = async (data: LoginFormData) => {
     const validation = loginSchema.safeParse(data);
